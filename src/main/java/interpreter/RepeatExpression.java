@@ -19,4 +19,17 @@ public class RepeatExpression extends Expression {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.format("Repeat %d times:\n", this.repetition));
+        for (Expression expression : this.expressions) {
+            String message = "\t" + expression.toString();
+            stringBuilder.append(message);
+        }
+        stringBuilder.append("\n");
+
+        return stringBuilder.toString();
+    }
 }
