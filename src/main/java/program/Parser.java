@@ -4,20 +4,29 @@ import interpreter.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class Parser {
+class Parser {
 
-    public List<Expression> parseInstructions(String pathToFile) throws FileNotFoundException, IllegalArgumentException {
+    // tokens
+    static String PEN_UP = "penUp";
+    static String PEN_DOWN = "penDown";
+    static String MOVE = "move";
+    static String TURN = "turn";
+    static String ASSIGN = "#[a-zA-Z]*";
+    static String REPEAT = "repeat";
+    static String END = "end";
+
+    List<Expression> parseInstructions(String pathToFile) throws FileNotFoundException, IllegalArgumentException {
 
         List<Expression> instructions = new ArrayList<Expression>();
 
         boolean needsRepeat = false;
-        ArrayList<Expression> repeatedStatements = new ArrayList<Expression>();
+        ArrayList<Expression> repeatedStatements = null;
+        Expression repetition = null;
 
         Scanner scanner = new Scanner(new File(pathToFile));
         while (scanner.hasNextLine()) {
@@ -28,27 +37,40 @@ public class Parser {
 
             Expression expression = null;
             String[] segments = currentLine.split(" ");
-            String command = segments[0];
+            String token = segments[0];
 
-            if (matches("penUp", command)) {
+            if (matches(PEN_UP, token)) {
                 expression = new PenUpExpression();
-            } else if (matches("penDown", command)) {
+            } else if (matches(PEN_DOWN, token)) {
                 expression = new PenDownExpression();
-            } else if (matches("move", command)) {
-                String argument = segments[1].toLowerCase();
-                expression = new MoveExpression(0);
-            } else if (matches("turn", command)) {
-                expression = new TurnExpression(0);
-            } else if (matches("#[a-zA-Z]*", command)) {
-                expression = new AssignmentExpression("", 0);
-            } else if (matches("repeat", command)) {
+            } else if (matches(MOVE, token)) {
+
+                String argumentString = segments[1];
+                Expression argument = parseArgument(argumentString);
+                expression = new MoveExpression(argument);
+
+            } else if (matches(TURN, token)) {
+
+                String argumentString = segments[1];
+                Expression argument = parseArgument(argumentString);
+                expression = new TurnExpression(argument);
+
+            } else if (matches(ASSIGN, token)) {
+
+                String[] parts = currentLine.split("=");
+                String variableName = parts[0].trim();
+                Expression value = parseArgument(parts[1].trim());
+
+                expression = new AssignmentExpression(variableName, value);
+            } else if (matches(REPEAT, token)) {
                 needsRepeat = true;
                 repeatedStatements = new ArrayList<Expression>();
-            } else if (matches("end", command)) {
-                expression = new RepeatExpression(0, repeatedStatements);
+                repetition = parseArgument(segments[1].trim());
+            } else if (matches(END, token)) {
+                expression = new RepeatExpression(repetition, repeatedStatements);
                 needsRepeat = false;
             } else {
-                throw new IllegalArgumentException(String.format("Unrecognized command: %s", currentLine));
+                throw new IllegalArgumentException("Unrecognized command: " + currentLine);
             }
 
             if (expression == null) {
@@ -67,5 +89,15 @@ public class Parser {
 
     private boolean matches(String regex, String input) {
         return Pattern.matches(regex, input);
+    }
+
+    Expression parseArgument(String string) {
+        try {
+            int intVal = Integer.parseInt(string);
+
+            return new Constant(intVal);
+        } catch (NumberFormatException e) {
+            return new Variable(string);
+        }
     }
 }

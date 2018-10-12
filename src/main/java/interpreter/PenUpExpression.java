@@ -1,8 +1,9 @@
 package interpreter;
 
 public class PenUpExpression extends Expression {
-    public void evaluate(Context context) {
+    public int evaluate(Context context) {
         context.getTurtle().penUp();
+        return 1;
     }
 
     @Override

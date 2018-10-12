@@ -3,19 +3,21 @@ package interpreter;
 public class AssignmentExpression extends Expression {
 
     private String variableName;
-    private int value;
+    private Expression value;
 
-    public AssignmentExpression(String variableName, int value) {
+    public AssignmentExpression(String variableName, Expression value) {
         this.variableName = variableName;
         this.value = value;
     }
 
-    public void evaluate(Context context) {
+    public int evaluate(Context context) {
+        int value = this.value.evaluate(context);
         context.setValue(variableName, value);
+        return 1;
     }
 
     @Override
     public String toString() {
-        return String.format("Assign %d to variable %s", this.value, this.variableName);
+        return String.format("Assign %s to variable %s", this.value, this.variableName);
     }
 }

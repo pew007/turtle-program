@@ -1,6 +1,9 @@
 package program;
 
+import interpreter.Constant;
 import interpreter.Expression;
+import interpreter.Variable;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -23,5 +26,16 @@ class ParserTest {
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
+    }
+
+    @Test
+    void parseArgument() {
+        Parser parser = new Parser();
+
+        Expression argument = parser.parseArgument("10");
+        Assertions.assertTrue(argument instanceof Constant);
+
+        argument = parser.parseArgument("#side");
+        Assertions.assertTrue(argument instanceof Variable);
     }
 }

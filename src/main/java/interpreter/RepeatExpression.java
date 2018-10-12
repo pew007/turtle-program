@@ -4,26 +4,29 @@ import java.util.List;
 
 public class RepeatExpression extends Expression {
 
-    private int repetition;
+    private Expression repetition;
     private List<Expression> expressions;
 
-    public RepeatExpression(int repetition, List<Expression> expressions) {
+    public RepeatExpression(Expression repetition, List<Expression> expressions) {
         this.repetition = repetition;
         this.expressions = expressions;
     }
 
-    public void evaluate(Context context) {
-        for (int i = 0; i < this.repetition; i++) {
+    public int evaluate(Context context) {
+        int repetitionVal = this.repetition.evaluate(context);
+        for (int i = 0; i < repetitionVal; i++) {
             for (Expression expression : this.expressions) {
                 expression.evaluate(context);
             }
         }
+
+        return 1;
     }
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(String.format("Repeat %d times:\n", this.repetition));
+        stringBuilder.append(String.format("Repeat %s times:\n", this.repetition));
         for (Expression expression : this.expressions) {
             String message = "\t" + expression.toString();
             stringBuilder.append(message);

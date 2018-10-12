@@ -2,18 +2,20 @@ package interpreter;
 
 public class TurnExpression extends Expression {
 
-    private int degrees;
+    private Expression argument;
 
-    public TurnExpression(int degrees) {
-        this.degrees = degrees;
+    public TurnExpression(Expression argument) {
+        this.argument = argument;
     }
 
-    public void evaluate(Context context) {
+    public int evaluate(Context context) {
+        int degrees = argument.evaluate(context);
         context.getTurtle().turn(degrees);
+        return 1;
     }
 
     @Override
     public String toString() {
-        return String.format("Turn %d degrees", this.degrees);
+        return String.format("Turn %s degrees", this.argument);
     }
 }

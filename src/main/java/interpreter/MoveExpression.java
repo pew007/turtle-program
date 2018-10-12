@@ -2,18 +2,20 @@ package interpreter;
 
 public class MoveExpression extends Expression {
 
-    private int distance;
+    private Expression argument;
 
-    public MoveExpression(int distance) {
-        this.distance = distance;
+    public MoveExpression(Expression argument) {
+        this.argument = argument;
     }
 
-    public void evaluate(Context context) {
+    public int evaluate(Context context) {
+        int distance = argument.evaluate(context);
         context.getTurtle().move(distance);
+        return 1;
     }
 
     @Override
     public String toString() {
-        return String.format("Move %d", this.distance);
+        return String.format("Move %s", this.argument);
     }
 }

@@ -16,15 +16,15 @@ public class Context {
         this.turtle = turtle;
     }
 
-    public Turtle getTurtle() {
+    Turtle getTurtle() {
         return turtle;
     }
 
-    public int getValue(String variableName) {
+    int getValue(String variableName) {
         return values.get(variableName);
     }
 
-    public void setValue(String variableName, int value) {
+    void setValue(String variableName, int value) {
         values.put(variableName, value);
     }
 }
