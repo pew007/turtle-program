@@ -9,9 +9,9 @@ class AssignmentExpressionTest {
     void evaluate() {
         Context context = new Context();
         Expression value = new Constant(15);
-        AssignmentExpression assignment = new AssignmentExpression("side", value);
+        AssignmentExpression assignment = new AssignmentExpression("#side", value);
         assignment.evaluate(context);
 
-        Assertions.assertEquals(15, context.getValue("side"));
+        Assertions.assertEquals(15, context.getValue("#side"));
     }
 }

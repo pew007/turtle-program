@@ -22,6 +22,7 @@ class ParserTest {
 
             for (Expression expression : instructions) {
                 System.out.println(expression);
+                Assertions.assertNotNull(expression);
             }
         } catch (Exception exception) {
             System.out.println(exception.getMessage());

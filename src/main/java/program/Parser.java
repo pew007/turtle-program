@@ -97,6 +97,7 @@ class Parser {
 
             return new Constant(intVal);
         } catch (NumberFormatException e) {
+            // if the string cannot be parsed to an integer then it's a variable
             return new Variable(string);
         }
     }
