@@ -7,8 +7,8 @@ public class Turtle {
     public Turtle() {
     }
 
-    public void move(int direction) {
-        System.out.println("Moving in direction " + direction);
+    public void move(int distance) {
+        System.out.println("Moving distance " + distance);
     }
 
     public void turn(int degrees) {

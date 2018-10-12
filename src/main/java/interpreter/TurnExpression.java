@@ -9,7 +9,7 @@ public class TurnExpression extends Expression {
     }
 
     public void evaluate(Context context) {
-
+        context.getTurtle().turn(degrees);
     }
 
     @Override

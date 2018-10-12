@@ -43,11 +43,10 @@ public class Parser {
                 expression = new AssignmentExpression("", 0);
             } else if (matches("repeat", command)) {
                 needsRepeat = true;
+                repeatedStatements = new ArrayList<Expression>();
             } else if (matches("end", command)) {
                 expression = new RepeatExpression(0, repeatedStatements);
-
                 needsRepeat = false;
-                repeatedStatements = new ArrayList<Expression>();
             } else {
                 throw new IllegalArgumentException(String.format("Unrecognized command: %s", currentLine));
             }

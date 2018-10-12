@@ -9,7 +9,7 @@ public class MoveExpression extends Expression {
     }
 
     public void evaluate(Context context) {
-
+        context.getTurtle().move(distance);
     }
 
     @Override
