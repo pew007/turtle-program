@@ -1,4 +1,19 @@
 package interpreter;
 
-public class MoveExpression {
+public class MoveExpression extends Expression {
+
+    private int distance;
+
+    public MoveExpression(int distance) {
+        this.distance = distance;
+    }
+
+    public void evaluate(Context context) {
+
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Move %d", this.distance);
+    }
 }
