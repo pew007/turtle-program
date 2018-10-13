@@ -1,5 +1,7 @@
 package interpreter;
 
+import program.Visitor;
+
 public class TurnExpression extends Expression {
 
     private Expression argument;
@@ -17,5 +19,9 @@ public class TurnExpression extends Expression {
     @Override
     public String toString() {
         return String.format("Turn %s degrees", this.argument);
+    }
+
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 }

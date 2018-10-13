@@ -1,5 +1,7 @@
 package interpreter;
 
+import program.Visitor;
+
 public class Variable extends Expression {
 
     private String name;
@@ -15,5 +17,9 @@ public class Variable extends Expression {
     @Override
     public String toString() {
         return name;
+    }
+
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 }

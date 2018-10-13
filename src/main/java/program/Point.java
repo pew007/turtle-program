@@ -1,4 +1,4 @@
-package turtle;
+package program;
 
 public class Point {
     private int x;

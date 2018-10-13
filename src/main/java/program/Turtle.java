@@ -1,4 +1,4 @@
-package turtle;
+package program;
 
 public class Turtle {
     private int direction;

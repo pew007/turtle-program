@@ -1,5 +1,7 @@
 package interpreter;
 
+import program.Visitor;
+
 public class AssignmentExpression extends Expression {
 
     private String variableName;
@@ -19,5 +21,9 @@ public class AssignmentExpression extends Expression {
     @Override
     public String toString() {
         return String.format("Assign %s to variable %s", this.value, this.variableName);
+    }
+
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 }

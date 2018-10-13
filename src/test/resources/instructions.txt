@@ -4,9 +4,7 @@ move #side
 turn 90
 
 repeat 4
-    penDown
     move 10
-    penUp
 end
 
 move #side

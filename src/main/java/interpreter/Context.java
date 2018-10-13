@@ -1,6 +1,6 @@
 package interpreter;
 
-import turtle.Turtle;
+import program.Turtle;
 
 import java.util.Hashtable;
 
@@ -16,7 +16,7 @@ public class Context {
         this.turtle = turtle;
     }
 
-    Turtle getTurtle() {
+    public Turtle getTurtle() {
         return turtle;
     }
 

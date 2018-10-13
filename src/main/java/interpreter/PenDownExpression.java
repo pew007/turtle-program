@@ -1,5 +1,7 @@
 package interpreter;
 
+import program.Visitor;
+
 public class PenDownExpression extends Expression {
     public int evaluate(Context context) {
         context.getTurtle().penDown();
@@ -10,5 +12,9 @@ public class PenDownExpression extends Expression {
     @Override
     public String toString() {
         return "Pen Down";
+    }
+
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 }
