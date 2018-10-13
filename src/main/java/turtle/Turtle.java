@@ -8,11 +8,11 @@ public class Turtle {
     }
 
     public void move(int distance) {
-        System.out.println("Moving distance " + distance);
+        System.out.println("Turtle is moving distance " + distance);
     }
 
     public void turn(int degrees) {
-        System.out.println("Turning in degrees " + degrees);
+        System.out.println("Turtle is turning in degrees " + degrees);
     }
 
     public void penUp() {
@@ -33,5 +33,17 @@ public class Turtle {
 
     public Point location() {
         return location;
+    }
+
+    public Memento createMemento() {
+        Memento currentState = new Memento();
+        currentState.setState("direction", direction);
+        currentState.setState("location", location);
+        return currentState;
+    }
+
+    public void restoreState(Memento oldState) {
+        this.direction = (Integer) oldState.getState("direction");
+        this.location = (Point) oldState.getState("location");
     }
 }

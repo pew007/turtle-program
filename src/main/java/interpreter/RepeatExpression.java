@@ -28,7 +28,7 @@ public class RepeatExpression extends Expression {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(String.format("Repeat %s times:\n", this.repetition));
         for (Expression expression : this.expressions) {
-            String message = "\t" + expression.toString();
+            String message = "\t" + expression;
             stringBuilder.append(message);
         }
         stringBuilder.append("\n");

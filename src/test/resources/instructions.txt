@@ -1,6 +1,6 @@
-#side = 10
+#side = 15
 
-move 10
+move #side
 turn 90
 
 repeat 4
