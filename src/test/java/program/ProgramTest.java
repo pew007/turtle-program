@@ -26,4 +26,14 @@ class ProgramTest {
 
         Assertions.assertEquals(70, program.distanceTravelled());
     }
+
+    @Test
+    void restoreTurtle() throws FileNotFoundException {
+        String file = "/Users/pwang/Documents/cs635/turtle-program/src/test/resources/instructions.txt";
+        Program program = new Program(file);
+
+        program.evaluate();
+
+        Turtle turtle = program.restore(1);
+    }
 }

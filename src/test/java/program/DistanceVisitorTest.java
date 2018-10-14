@@ -16,7 +16,7 @@ class DistanceVisitorTest {
     private DistanceVisitor visitor;
 
     @BeforeEach
-    void setup() {
+    void setUp() {
         visitor = new DistanceVisitor();
     }
 

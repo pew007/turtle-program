@@ -6,7 +6,7 @@ import interpreter.Expression;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-public class Program implements Visitable {
+public class Program {
 
     private List<Expression> ast;
     private Context context;
@@ -20,18 +20,21 @@ public class Program implements Visitable {
         this.context.setTurtle(turtle);
     }
 
-    void evaluate(){
+    void evaluate() {
         for (Expression expression : this.ast) {
             expression.evaluate(this.context);
         }
     }
 
-    List<Memento> getMemento(int index) {
+    Turtle restore(int step) {
         MementoVisitor mementoVisitor = new MementoVisitor();
-        mementoVisitor.setIndex(index);
+        mementoVisitor.setContext(context);
         this.accept(mementoVisitor);
 
-        return (List<Memento>) mementoVisitor.getResult();
+        Turtle turtle = this.context.getTurtle();
+        turtle.restoreState(mementoVisitor.getMemento(step));
+
+        return turtle;
     }
 
     int distanceTravelled() {

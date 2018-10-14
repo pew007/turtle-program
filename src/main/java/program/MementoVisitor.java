@@ -8,26 +8,28 @@ import java.util.List;
 public class MementoVisitor implements Visitor {
 
     private List<Memento> saved = new ArrayList<Memento>();
-    private int index;
+    private Context context;
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setContext(Context context) {
+        this.context = context;
     }
 
-    public void addMemento(Memento memento) {
+    private void addMemento(Memento memento) {
         saved.add(memento);
     }
 
-    public Memento getMemento(int index) {
-        return saved.get(index);
+    Memento getMemento(int step) {
+        return saved.get(step);
     }
 
     public void visit(MoveExpression moveExpression) {
-        this.getMemento(0);
+        Turtle turtle = this.context.getTurtle();
+        this.addMemento(turtle.createMemento());
     }
 
     public void visit(TurnExpression turnExpression) {
-
+        Turtle turtle = this.context.getTurtle();
+        this.addMemento(turtle.createMemento());
     }
 
     public void visit(PenUpExpression penUpExpression) {
@@ -39,7 +41,14 @@ public class MementoVisitor implements Visitor {
     }
 
     public void visit(RepeatExpression repeatExpression) {
+        int repetition = repeatExpression.getRepetition(context);
 
+        for (int i = 0; i < repetition; i++) {
+            for (Expression ignored : repeatExpression.getRepeatedExpressions()) {
+                Turtle turtle = context.getTurtle();
+                this.addMemento(turtle.createMemento());
+            }
+        }
     }
 
     public void visit(AssignmentExpression assignmentExpression) {
