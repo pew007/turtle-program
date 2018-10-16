@@ -1,4 +1,0 @@
-penDown
-move 10
-move 15
-move 20
