@@ -15,6 +15,12 @@ class ProgramTest {
         Program program = new Program(file);
 
         program.evaluate();
+
+        Turtle turtle = program.getContext().getTurtle();
+        Assertions.assertEquals(90, turtle.direction());
+        double allowedDelta = 0.001;
+        Assertions.assertEquals(15, turtle.location().getX(), allowedDelta);
+        Assertions.assertEquals(55, turtle.location().getY(), allowedDelta);
     }
 
     @Test
@@ -29,11 +35,13 @@ class ProgramTest {
 
     @Test
     void restoreTurtle() throws FileNotFoundException {
-        String file = "/Users/pwang/Documents/cs635/turtle-program/src/test/resources/instructions.txt";
+        String file = "/Users/pwang/Documents/cs635/turtle-program/src/test/resources/move.txt";
         Program program = new Program(file);
 
         program.evaluate();
 
         Turtle turtle = program.restore(1);
+        Assertions.assertEquals(25, turtle.location().getX());
+        Assertions.assertEquals(0, turtle.location().getY());
     }
 }

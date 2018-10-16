@@ -21,7 +21,6 @@ class ParserTest {
             List<Expression> instructions = parser.parseInstructions(file);
 
             for (Expression expression : instructions) {
-                System.out.println(expression);
                 Assertions.assertNotNull(expression);
             }
         } catch (Exception exception) {

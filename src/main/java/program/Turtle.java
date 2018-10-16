@@ -5,13 +5,15 @@ public class Turtle {
     private Point location;
     private boolean isDrawing;
 
-    Turtle() {
+    public Turtle() {
         this.direction = 0;
         this.location = new Point(0, 0);
     }
 
     public void move(int distance) {
-        this.location = location.move(direction, distance);
+        if (isDrawing) {
+            this.location = location.move(direction, distance);
+        }
     }
 
     public void turn(int degrees) {
@@ -39,14 +41,21 @@ public class Turtle {
     }
 
     Memento createMemento() {
-        Memento currentState = new Memento();
-        currentState.setState("direction", direction);
-        currentState.setState("location", location);
-        return currentState;
+        try {
+            Point currentLocation = (Point) location.clone();
+            Memento currentState = new Memento();
+            currentState.setState("direction", direction());
+            currentState.setState("location", currentLocation);
+            currentState.setState("isDrawing", isDrawing);
+            return currentState;
+        } catch (CloneNotSupportedException ex) {
+            return null;
+        }
     }
 
     void restoreState(Memento oldState) {
         this.direction = (Integer) oldState.getState("direction");
         this.location = (Point) oldState.getState("location");
+        this.isDrawing = (boolean) oldState.getState("isDrawing");
     }
 }

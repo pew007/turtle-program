@@ -20,6 +20,10 @@ public class Program {
         this.context.setTurtle(turtle);
     }
 
+    Context getContext() {
+        return context;
+    }
+
     void evaluate() {
         for (Expression expression : this.ast) {
             expression.evaluate(this.context);

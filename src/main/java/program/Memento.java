@@ -16,12 +16,4 @@ class Memento {
     Object getState(String stateName) {
         return savedStates.get(stateName);
     }
-
-    Object getState(String stateName, Object defaultValue) {
-        if (savedStates.containsKey(stateName)) {
-            return savedStates.get(stateName);
-        } else {
-            return defaultValue;
-        }
-    }
 }

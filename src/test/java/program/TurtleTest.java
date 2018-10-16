@@ -8,6 +8,7 @@ class TurtleTest {
     @Test
     void move() {
         Turtle turtle = new Turtle();
+        turtle.penDown();
         turtle.move(10);
 
         Assertions.assertEquals(10, turtle.location().getX());
@@ -17,6 +18,7 @@ class TurtleTest {
     @Test
     void turn() {
         Turtle turtle = new Turtle();
+        turtle.penDown();
         turtle.move(10);
         turtle.turn(90);
         turtle.move(20);
